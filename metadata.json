@@ -1,0 +1,5 @@
+{
+  "name": "Limra InfoNet",
+  "description": "A professional AI-powered blog website with full frontend and backend integration using React, Supabase, and Gemini API. Features include an admin panel, AI article generation, and a modern, responsive design.",
+  "requestFramePermissions": []
+}
