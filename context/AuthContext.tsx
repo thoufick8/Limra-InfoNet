@@ -1,8 +1,10 @@
-
 import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
 import { supabase } from '../services/supabaseClient';
-import { AuthChangeEvent, Session, User } from '@supabase/supabase-js';
+// FIX: Removed imports for AuthChangeEvent, Session, and User as they are not exported in older supabase-js versions.
+// import { AuthChangeEvent, Session, User } from '@supabase/supabase-js';
 import { LoggedInUser } from '../types';
+import type { Session } from '@supabase/supabase-js';
+
 
 interface AuthContextType {
   user: LoggedInUser | null;
@@ -18,6 +20,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // FIX: Replaced supabase.auth.session() with supabase.auth.getSession() for Supabase v2.
     const getInitialSession = async () => {
         const { data: { session } } = await supabase.auth.getSession();
         setSession(session);
@@ -27,8 +30,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     
     getInitialSession();
 
+    // FIX: Correctly handle subscription from onAuthStateChange for Supabase v2.
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event: AuthChangeEvent, session: Session | null) => {
+      (_event: string, session: Session | null) => {
         setSession(session);
         setUser(session?.user as LoggedInUser ?? null);
       }

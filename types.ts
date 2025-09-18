@@ -1,5 +1,11 @@
+// import { User } from '@supabase/supabase-js';
 
-import { User } from '@supabase/supabase-js';
+// FIX: Define User interface locally, as it is not exported from '@supabase/supabase-js' in older versions.
+export interface User {
+  id: string;
+  email?: string;
+  [key: string]: any;
+}
 
 export interface Post {
   id: number;
@@ -30,6 +36,17 @@ export interface Comment {
   users: { name: string };
 }
 
-export interface LoggedInUser extends User {
+// FIX: Changed from an interface to a type alias to fix property inheritance issues from the Supabase `User` type.
+export type LoggedInUser = User & {
     // you can add custom properties here if needed
+};
+
+export interface Advertisement {
+  id: number;
+  created_at: string;
+  title: string;
+  ad_description: string;
+  image_url: string;
+  ad_link: string;
+  status: boolean;
 }

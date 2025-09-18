@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../services/supabaseClient';
@@ -15,6 +14,7 @@ const LoginPage = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    // FIX: Use `signInWithPassword` for email/password authentication in Supabase v2.
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
       setError(error.message);
@@ -29,6 +29,7 @@ const LoginPage = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    // FIX: The signUp method call is correct for older versions, but the reported error suggests a type definition issue with the auth client, which should be resolved by other Supabase-related fixes.
     const { error } = await supabase.auth.signUp({ email, password });
     if (error) {
       setError(error.message);

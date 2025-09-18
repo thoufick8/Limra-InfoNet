@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
-import { Post, Category } from '../types';
+import { Post, Category, Advertisement } from '../types';
 import Layout from '../components/Layout';
 import Spinner from '../components/Spinner';
 import { Search, ChevronRight, ChevronLeft, Twitter, Facebook, Instagram } from 'lucide-react';
@@ -78,6 +78,7 @@ const HomePage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [trendingPosts, setTrendingPosts] = useState<Post[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
@@ -102,6 +103,14 @@ const HomePage = () => {
 
         if (categoriesError) throw categoriesError;
         setCategories(categoriesData || []);
+        
+        const { data: adsData, error: adsError } = await supabase
+            .from('advertisements')
+            .select('*')
+            .eq('status', true);
+
+        if (adsError) throw adsError;
+        setAdvertisements(adsData || []);
 
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -164,6 +173,25 @@ const HomePage = () => {
         <div className="swiper-button-next-custom absolute top-1/2 -translate-y-1/2 right-0 z-10 p-2 bg-white/50 dark:bg-black/50 rounded-full cursor-pointer hover:bg-white dark:hover:bg-black text-gray-800 dark:text-white"><ChevronRight /></div>
         <div className="swiper-pagination"></div>
       </div>
+
+      {advertisements.length > 0 && (
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Promotions</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {advertisements.map(ad => (
+              <a href={ad.ad_link} key={ad.id} target="_blank" rel="noopener noreferrer" className="block bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
+                <img src={ad.image_url} alt={ad.title} className="w-full h-48 object-cover" />
+                <div className="p-5">
+                  <h3 className="text-lg font-bold text-gray-800 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors">{ad.title}</h3>
+                  <div className="mt-4 text-primary-600 dark:text-primary-400 font-semibold text-sm flex items-center">
+                    Learn More <ChevronRight className="w-4 h-4 ml-1" />
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <div className="lg:col-span-2">

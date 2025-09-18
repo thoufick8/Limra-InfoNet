@@ -18,6 +18,7 @@ import ManageComments from './pages/admin/ManageComments';
 import LoginPage from './pages/admin/LoginPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import YouTubeTool from './pages/admin/YouTubeTool';
+import ManageAdvertisements from './pages/admin/ManageAdvertisements';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
               <Route path="categories" element={<ManageCategories />} />
               <Route path="comments" element={<ManageComments />} />
               <Route path="youtube-tool" element={<YouTubeTool />} />
+              <Route path="advertisement" element={<ManageAdvertisements />} />
             </Route>
           </Routes>
         </HashRouter>

@@ -3,7 +3,7 @@ import React from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../services/supabaseClient';
-import { LayoutDashboard, FileText, Tags, MessageSquare, LogOut, ExternalLink, Menu, X, Sun, Moon, Youtube } from 'lucide-react';
+import { LayoutDashboard, FileText, Tags, MessageSquare, LogOut, ExternalLink, Menu, X, Sun, Moon, Youtube, Megaphone } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import AIAssistant from '../../components/AIAssistant';
 
@@ -24,6 +24,7 @@ const AdminLayout = () => {
         { name: 'Categories', path: '/admin/categories', icon: Tags },
         { name: 'Comments', path: '/admin/comments', icon: MessageSquare },
         { name: 'YouTube Tool', path: '/admin/youtube-tool', icon: Youtube },
+        { name: 'Advertisement', path: '/admin/advertisement', icon: Megaphone },
     ];
     
     const activeClass = "bg-primary-100 dark:bg-gray-700 text-primary-600 dark:text-white";
