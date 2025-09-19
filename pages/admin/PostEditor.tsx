@@ -1,5 +1,6 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
+// FIX: Use named imports for react-router-dom to resolve hook properties.
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { supabase } from '../../services/supabaseClient';
 import { useAuth } from '../../context/AuthContext';
@@ -33,40 +34,58 @@ const PostEditor = () => {
     const isEditing = Boolean(id);
     
     useEffect(() => {
-        if (location.state?.initialTitle) setTitle(location.state.initialTitle);
-        if (location.state?.initialContent) setContent(location.state.initialContent);
-    }, [location.state]);
-    
-    const fetchPost = useCallback(async () => {
-        if (!isEditing) return;
-        setLoading(true);
-        const { data, error } = await supabase.from('posts').select('*').eq('id', id).single();
-        if (error) {
-            console.error('Error fetching post:', error);
-            navigate('/admin/posts');
-        } else if (data) {
-            const post = data as Post;
-            setTitle(post.title);
-            setContent(post.content);
-            setCategory(post.category);
-            setStatus(post.status);
-            setImageUrl(post.image_url || '');
-            setSummary(post.summary || '');
-            setMetaDescription(post.meta_description || '');
-            setKeywords(post.keywords || []);
-        }
-        setLoading(false);
-    }, [id, isEditing, navigate]);
-
-    useEffect(() => {
         const fetchCategories = async () => {
             const { data, error } = await supabase.from('categories').select('*');
             if (error) console.error("Error fetching categories", error);
             else setCategories(data || []);
         };
         fetchCategories();
-        fetchPost();
-    }, [fetchPost]);
+    }, []);
+
+    useEffect(() => {
+        const fetchPost = async () => {
+            if (!id) return;
+            setLoading(true);
+            const { data, error } = await supabase.from('posts').select('*').eq('id', id).single();
+            if (error) {
+                console.error('Error fetching post:', error);
+                navigate('/admin/posts');
+            } else if (data) {
+                const post = data as Post;
+                setTitle(post.title);
+                setContent(post.content);
+                setCategory(post.category);
+                setStatus(post.status);
+                setImageUrl(post.image_url || '');
+                setSummary(post.summary || '');
+                setMetaDescription(post.meta_description || '');
+                
+                const rawKeywords: any = post.keywords;
+                let keywordsArray: string[] = [];
+                if (Array.isArray(rawKeywords)) {
+                    keywordsArray = rawKeywords;
+                } else if (typeof rawKeywords === 'string' && rawKeywords) {
+                    keywordsArray = rawKeywords.split(',').map(k => k.trim());
+                }
+                setKeywords(keywordsArray);
+            }
+            setLoading(false);
+        };
+
+        if (isEditing) {
+            fetchPost();
+        } else {
+            // Reset form for "new post" page, potentially pre-filled from location state
+            setTitle(location.state?.initialTitle || '');
+            setContent(location.state?.initialContent || '');
+            setCategory('');
+            setStatus('draft');
+            setImageUrl('');
+            setSummary('');
+            setMetaDescription('');
+            setKeywords([]);
+        }
+    }, [id, isEditing, navigate, location.state]);
     
     const base64ToBlob = (base64: string, mimeType: string): Blob => {
         const byteCharacters = atob(base64);

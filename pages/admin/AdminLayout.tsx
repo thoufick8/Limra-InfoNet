@@ -1,6 +1,8 @@
 
+
 import React from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+// FIX: Use named imports for react-router-dom to resolve component and hook properties.
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../services/supabaseClient';
 import { LayoutDashboard, FileText, Tags, MessageSquare, LogOut, ExternalLink, Menu, X, Sun, Moon, Youtube, Megaphone } from 'lucide-react';
@@ -33,7 +35,14 @@ const AdminLayout = () => {
     const SidebarContent = () => (
         <div className="flex flex-col h-full">
             <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-                <h1 className="text-xl font-bold text-gray-900 dark:text-white">Admin Panel</h1>
+                <Link to="/admin" className="flex items-center space-x-2">
+                    <img 
+                        className="h-10 w-auto" 
+                        src="https://i.postimg.cc/Y060Kbvp/Picsart-25-09-18-07-38-03-872.png" 
+                        alt="Limra InfoNet Logo" 
+                    />
+                    <span className="font-bold text-xl text-gray-800 dark:text-white">Limra InfoNet</span>
+                </Link>
                 <button onClick={() => setSidebarOpen(false)} className="lg:hidden p-1 text-gray-500 dark:text-gray-400">
                     <X size={20}/>
                 </button>

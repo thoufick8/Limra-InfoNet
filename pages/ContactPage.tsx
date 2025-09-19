@@ -23,7 +23,7 @@ const ContactPage = () => {
   return (
     <Layout>
       <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-6 text-center" style={{fontFamily: "'Playfair Display', serif"}}>Contact Us</h1>
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-6 text-center font-serif">Contact Us</h1>
         <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
           Have a question or feedback? Fill out the form below and we'll get back to you as soon as possible.
         </p>

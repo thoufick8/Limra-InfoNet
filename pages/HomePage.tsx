@@ -1,78 +1,16 @@
+
 import React, { useState, useEffect } from 'react';
+// FIX: Use a named import for react-router-dom to resolve the Link component property.
 import { Link } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import { Post, Category, Advertisement } from '../types';
 import Layout from '../components/Layout';
 import Spinner from '../components/Spinner';
-import { Search, ChevronRight, ChevronLeft, Twitter, Facebook, Instagram } from 'lucide-react';
+import PostCard from '../components/PostCard';
+import Sidebar from '../components/Sidebar';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-
-const PostCard = ({ post }: { post: Post }) => (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
-      <Link to={`/post/${post.id}`}>
-        <img src={post.image_url || `https://picsum.photos/seed/${post.id}/400/250`} alt={post.title} className="w-full h-48 object-cover" />
-        <div className="p-5">
-          <span className="text-sm text-primary-500 dark:text-primary-400 font-semibold">{post.category || 'Uncategorized'}</span>
-          <h3 className="mt-2 text-lg font-bold text-gray-800 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors">{post.title}</h3>
-          <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm line-clamp-2">{post.content.substring(0, 100)}...</p>
-          <div className="mt-4 text-primary-600 dark:text-primary-400 font-semibold text-sm flex items-center">
-            Read More <ChevronRight className="w-4 h-4 ml-1" />
-          </div>
-        </div>
-      </Link>
-    </div>
-);
-
-const Sidebar = ({ categories, popularPosts, searchQuery, setSearchQuery }: { categories: Category[], popularPosts: Post[], searchQuery: string, setSearchQuery: (query: string) => void }) => (
-  <aside className="space-y-8">
-    <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-      <h3 className="font-bold text-lg mb-4 text-gray-800 dark:text-white">Search</h3>
-      <div className="relative">
-        <input 
-          type="text" 
-          placeholder="Search articles..." 
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full py-2 pl-4 pr-10 rounded-md bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500" />
-        <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-      </div>
-    </div>
-    <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-      <h3 className="font-bold text-lg mb-4 text-gray-800 dark:text-white">Categories</h3>
-      <ul className="space-y-2">
-        {categories.map(cat => (
-          <li key={cat.id}>
-            <Link to={`/category/${cat.name}`} className="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors">{cat.name}</Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-    <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-      <h3 className="font-bold text-lg mb-4 text-gray-800 dark:text-white">Popular Posts</h3>
-      <div className="space-y-4">
-        {popularPosts.map(post => (
-          <Link to={`/post/${post.id}`} key={post.id} className="flex items-center space-x-3 group">
-            <img src={post.image_url || `https://picsum.photos/seed/${post.id}/100/100`} alt={post.title} className="w-16 h-16 rounded-md object-cover" />
-            <div>
-              <h4 className="font-semibold text-sm text-gray-800 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors line-clamp-2">{post.title}</h4>
-              <p className="text-xs text-gray-500 dark:text-gray-400">{new Date(post.created_at).toLocaleDateString()}</p>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </div>
-    <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-        <h3 className="font-bold text-lg mb-4 text-gray-800 dark:text-white">Follow Us</h3>
-        <div className="flex space-x-4">
-            <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-primary-500"><Twitter /></a>
-            <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-primary-500"><Facebook /></a>
-            <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-primary-500"><Instagram /></a>
-        </div>
-    </div>
-  </aside>
-);
-
 
 const HomePage = () => {
   const [posts, setPosts] = useState<Post[]>([]);

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../services/supabaseClient';
 import { useAuth } from '../../context/AuthContext';
+// FIX: Use a named import for react-router-dom to resolve the Link component property.
 import { Link } from 'react-router-dom';
 import { FileText, Tags, MessageSquare, ArrowRight } from 'lucide-react';
 import Spinner from '../../components/Spinner';

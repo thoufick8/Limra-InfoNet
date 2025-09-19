@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+// FIX: Use named imports for react-router-dom to resolve hook and component properties.
 import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import { Post, Comment } from '../types';
@@ -103,7 +104,7 @@ const PostPage = () => {
     <Layout>
       <div className="max-w-4xl mx-auto">
         <article className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 md:p-10">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" style={{fontFamily: "'Playfair Display', serif"}}>{post.title}</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 font-serif">{post.title}</h1>
           <div className="flex flex-wrap items-center space-x-4 text-gray-500 dark:text-gray-400 mb-6 text-sm">
             <div className="flex items-center space-x-2"><UserIcon className="w-4 h-4" /><span>By {post.author}</span></div>
             <div className="flex items-center space-x-2"><Calendar className="w-4 h-4" /><span>{new Date(post.created_at).toLocaleDateString()}</span></div>

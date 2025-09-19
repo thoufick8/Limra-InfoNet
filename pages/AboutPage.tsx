@@ -6,7 +6,7 @@ const AboutPage = () => {
   return (
     <Layout>
       <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-6" style={{fontFamily: "'Playfair Display', serif"}}>About Limra InfoNet</h1>
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-6 font-serif">About Limra InfoNet</h1>
         <div className="prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200">
           <p className="text-lg">
             Welcome to Limra InfoNet, your premier source for high-quality, AI-powered content. We are dedicated to bringing you the most insightful and up-to-date articles on a wide range of topics including technology, Islamic knowledge, trending news, and modern lifestyle.

@@ -1,4 +1,6 @@
+
 import React, { useState } from 'react';
+// FIX: Use named imports for react-router-dom to resolve component properties.
 import { Link, NavLink } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { Sun, Moon, Menu, X } from 'lucide-react';
@@ -9,9 +11,10 @@ const Header = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Categories', path: '/categories' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },
-    { name: 'Admin Panel', path: '/admin' },
   ];
 
   const activeLinkClass = "text-primary-500 dark:text-primary-400";
@@ -25,10 +28,10 @@ const Header = () => {
             <Link to="/" className="flex items-center space-x-2">
               <img 
                 className="h-10 w-auto" 
-                src="https://i.postimg.cc/kX27yMCK/Picsart-25-09-16-15-51-30-259.png" 
+                src="https://i.postimg.cc/Y060Kbvp/Picsart-25-09-18-07-38-03-872.png" 
                 alt="Limra InfoNet Logo" 
               />
-              <span className="font-bold text-xl text-gray-800 dark:text-white hidden sm:inline">Limra InfoNet</span>
+              <span className="font-serif font-bold text-xl text-gray-800 dark:text-white">Limra InfoNet</span>
             </Link>
           </div>
           <div className="hidden md:flex md:items-center md:space-x-8">
@@ -36,6 +39,7 @@ const Header = () => {
               <NavLink 
                 key={link.name} 
                 to={link.path}
+                end={link.path === '/'}
                 className={({ isActive }) => `${isActive ? activeLinkClass : inactiveLinkClass} font-medium transition-colors`}
               >
                 {link.name}
@@ -69,6 +73,7 @@ const Header = () => {
               <NavLink 
                 key={link.name} 
                 to={link.path}
+                end={link.path === '/'}
                 onClick={() => setIsMenuOpen(false)}
                 className={({ isActive }) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? 'bg-primary-50 dark:bg-gray-800 ' + activeLinkClass : inactiveLinkClass}`}
               >

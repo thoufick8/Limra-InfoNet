@@ -1,11 +1,10 @@
 
 import React, { useState } from 'react';
-// FIX: Use named imports for react-router-dom to resolve hook and component properties.
 import { useNavigate, Link } from 'react-router-dom';
-import { supabase } from '../../services/supabaseClient';
+import { supabase } from '../services/supabaseClient';
 import { Mail, Lock } from 'lucide-react';
 
-const LoginPage = () => {
+const UserLoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -16,12 +15,11 @@ const LoginPage = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    // FIX: Use `signInWithPassword` for email/password authentication in Supabase v2.
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
       setError(error.message);
     } else {
-      navigate('/admin');
+      navigate('/'); // Redirect to home page on successful user login
     }
     setLoading(false);
   };
@@ -30,13 +28,15 @@ const LoginPage = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
       <div className="w-full max-w-md p-8 space-y-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
         <div className="text-center">
-          <img 
-            className="mx-auto h-16 w-auto" 
-            src="https://i.postimg.cc/Y060Kbvp/Picsart-25-09-18-07-38-03-872.png" 
-            alt="Limra InfoNet Logo" 
-          />
+          <Link to="/">
+              <img 
+                className="mx-auto h-16 w-auto" 
+                src="https://i.postimg.cc/Y060Kbvp/Picsart-25-09-18-07-38-03-872.png" 
+                alt="Limra InfoNet Logo" 
+              />
+          </Link>
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-white">
-            Admin Panel Login
+            Login to Your Account
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleLogin}>
@@ -75,9 +75,15 @@ const LoginPage = () => {
             </button>
           </div>
         </form>
+         <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+            Don't have an account?{' '}
+            <Link to="/signup" className="font-medium text-primary-600 hover:text-primary-500">
+                Sign up here
+            </Link>
+        </p>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default UserLoginPage;

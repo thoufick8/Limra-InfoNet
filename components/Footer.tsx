@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+// FIX: Use a named import for react-router-dom to resolve the Link component property.
 import { Link } from 'react-router-dom';
 import { Send } from 'lucide-react';
 
@@ -32,6 +33,7 @@ const Footer = () => {
               <li><Link to="/about" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">About Us</Link></li>
               <li><Link to="/contact" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">Contact</Link></li>
               <li><Link to="#" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">Privacy Policy</Link></li>
+              <li><Link to="/admin" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">Admin Panel</Link></li>
             </ul>
           </div>
           <div>

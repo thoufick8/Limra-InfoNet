@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+// FIX: Use named imports for react-router-dom to resolve hook and component properties.
 import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import { Post } from '../types';

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generatePostFromTranscript } from '../../services/geminiService';
@@ -37,7 +38,8 @@ const YouTubeTool = () => {
         }
 
         try {
-            const response = await fetch('https://corsproxy.io/?https://www.youtube-transcript.io/api/transcripts', {
+            // Switched to a different CORS proxy for better reliability
+            const response = await fetch('https://cors.sh/https://www.youtube-transcript.io/api/transcripts', {
                 method: 'POST',
                 headers: {
                     'Authorization': 'Basic 68cab8b990fe42b50845f80d',
@@ -47,7 +49,7 @@ const YouTubeTool = () => {
             });
 
             if (!response.ok) {
-                throw new Error(`API request failed with status ${response.status}. Please try pasting manually.`);
+                throw new Error(`API request failed. This video might not have a transcript available.`);
             }
 
             const data = await response.json();
@@ -60,7 +62,8 @@ const YouTubeTool = () => {
             }
         } catch (err) {
             console.error("Error fetching transcript:", err);
-            setFetchError((err as Error).message);
+            const detailedError = "Failed to fetch the transcript. This can be due to a network issue, the CORS proxy being temporarily unavailable, or the video not having a transcript. Please check your connection or try pasting the transcript manually.";
+            setFetchError(detailedError);
         } finally {
             setIsFetchingTranscript(false);
         }
