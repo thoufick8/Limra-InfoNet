@@ -8,6 +8,7 @@ import Layout from '../components/Layout';
 import Spinner from '../components/Spinner';
 import PostCard from '../components/PostCard';
 import Sidebar from '../components/Sidebar';
+import AdSenseBlock from '../components/AdSenseBlock';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -146,6 +147,9 @@ const HomePage = () => {
         <div className="swiper-pagination"></div>
       </div>
 
+      {/* AdSense Home Page Banner - Replace 4567890123 with your ad slot ID */}
+      <AdSenseBlock adSlot="4567890123" />
+      
       {advertisements.length > 0 && (
         <div className="mb-12">
             <a href={advertisements[0].ad_link} target="_blank" rel="noopener noreferrer" className="block group">

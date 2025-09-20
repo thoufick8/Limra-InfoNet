@@ -7,6 +7,7 @@ import { Post, Comment } from '../types';
 import Layout from '../components/Layout';
 import Spinner from '../components/Spinner';
 import { useAuth } from '../context/AuthContext';
+import AdSenseBlock from '../components/AdSenseBlock';
 import { Calendar, User as UserIcon, Tag, Share2, Twitter, Facebook, MessageCircle, Send, FileText } from 'lucide-react';
 
 const PostPage = () => {
@@ -121,6 +122,9 @@ const PostPage = () => {
           <img src={post.image_url || `https://picsum.photos/seed/${post.id}/800/400`} alt={post.title} className="w-full h-auto object-contain rounded-lg mb-8" />
 
           <div className="prose prose-sm sm:prose-base dark:prose-invert max-w-none text-gray-800 dark:text-gray-200" dangerouslySetInnerHTML={{ __html: post.content }}></div>
+
+          {/* AdSense In-Article Ad - Replace 3456789012 with your ad slot ID */}
+          <AdSenseBlock adSlot="3456789012" />
 
           <div className="mt-10 pt-6 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Share this post</h3>

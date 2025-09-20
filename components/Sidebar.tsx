@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Category, Post } from '../types';
 import { Search, Youtube, Facebook, Instagram } from 'lucide-react';
+import AdSenseBlock from './AdSenseBlock';
 
 interface SidebarProps {
     categories: Category[];
@@ -57,6 +58,8 @@ const Sidebar: React.FC<SidebarProps> = ({ categories, popularPosts, searchQuery
             <a href="https://www.youtube.com/redirect?event=channel_description&redir_token=QUFFLUhqa0ZLcjBIV0hYS0h2My1uNE9MNVRnaXRJTkg4QXxBQ3Jtc0tudzNGOTh3MXl2WUk4U2kwUXdBcThVX3B6UFFDT1V1RS1HQ0s4c2FwZGU4RVczYTdrMWNwd3VGU1VyQTZxTGhPdmlEZHlld0JhNWNQY2pnQ0lSaWRPWV9DODc3eFpRaHpXUTlfMEJlZlAyRFk2aDVDQQ&q=https%3A%2F%2Finstagram.com%2Ftowards_dawah_12" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-primary-500"><Instagram /></a>
         </div>
     </div>
+    {/* AdSense Sidebar Ad - Replace 2345678901 with your ad slot ID */}
+    <AdSenseBlock adSlot="2345678901" style={{ display: 'block' }} adFormat="auto" responsive="true" />
   </aside>
 );
 

@@ -5,6 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import { supabase } from '../services/supabaseClient';
 import { Advertisement } from '../types';
+import AdSenseBlock from './AdSenseBlock';
 
 const TopAdBanner = () => {
     const [ad, setAd] = useState<Advertisement | null>(null);
@@ -61,7 +62,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div className="flex flex-col min-h-screen font-sans text-gray-900 dark:text-gray-100 transition-colors duration-300">
       <Header />
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {!isHomePage && <TopAdBanner />}
+        {!isHomePage && (
+          <>
+            <TopAdBanner />
+            {/* AdSense Top Banner - Replace 1234567890 with your ad slot ID */}
+            <AdSenseBlock adSlot="1234567890" />
+          </>
+        )}
         {children}
       </main>
       <Footer />
