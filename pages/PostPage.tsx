@@ -102,9 +102,9 @@ const PostPage = () => {
 
   return (
     <Layout>
-      <div className="max-w-4xl mx-auto">
-        <article className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 md:p-10">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 font-serif">{post.title}</h1>
+      <div className="max-w-2xl mx-auto">
+        <article className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6 md:p-8">
+          <h1 className="text-[clamp(1.75rem,5vw,2.5rem)] leading-tight font-bold text-gray-900 dark:text-white mb-4 font-serif">{post.title}</h1>
           <div className="flex flex-wrap items-center space-x-4 text-gray-500 dark:text-gray-400 mb-6 text-sm">
             <div className="flex items-center space-x-2"><UserIcon className="w-4 h-4" /><span>By {post.author}</span></div>
             <div className="flex items-center space-x-2"><Calendar className="w-4 h-4" /><span>{new Date(post.created_at).toLocaleDateString()}</span></div>
@@ -114,13 +114,13 @@ const PostPage = () => {
           {post.summary && (
             <div className="my-8 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg border-l-4 border-primary-500">
                 <h3 className="font-bold text-lg text-gray-800 dark:text-white flex items-center mb-2"><FileText className="w-5 h-5 mr-2" /> Quick Summary</h3>
-                <div className="prose prose-sm dark:prose-invert max-w-none text-gray-700 dark:text-gray-300" dangerouslySetInnerHTML={{ __html: post.summary.replace(/\n/g, '<br />') }} />
+                <div className="prose prose-sm sm:prose-base dark:prose-invert max-w-none text-gray-700 dark:text-gray-300" dangerouslySetInnerHTML={{ __html: post.summary.replace(/\n/g, '<br />') }} />
             </div>
           )}
 
           <img src={post.image_url || `https://picsum.photos/seed/${post.id}/800/400`} alt={post.title} className="w-full h-auto object-contain rounded-lg mb-8" />
 
-          <div className="prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200" dangerouslySetInnerHTML={{ __html: post.content }}></div>
+          <div className="prose prose-sm sm:prose-base dark:prose-invert max-w-none text-gray-800 dark:text-gray-200" dangerouslySetInnerHTML={{ __html: post.content }}></div>
 
           <div className="mt-10 pt-6 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Share this post</h3>
@@ -150,7 +150,7 @@ const PostPage = () => {
         )}
 
         {/* Comments Section */}
-        <div className="mt-12 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 md:p-8">
+        <div className="mt-12 bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-6 md:p-8">
           <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white flex items-center">
             <MessageCircle className="w-6 h-6 mr-3" />Comments ({comments.length})
           </h2>
