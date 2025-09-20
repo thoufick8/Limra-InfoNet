@@ -118,7 +118,7 @@ const PostPage = () => {
             </div>
           )}
 
-          <img src={post.image_url || `https://picsum.photos/seed/${post.id}/800/400`} alt={post.title} className="w-full h-auto rounded-lg mb-8" />
+          <img src={post.image_url || `https://picsum.photos/seed/${post.id}/800/400`} alt={post.title} className="w-full h-auto object-contain rounded-lg mb-8" />
 
           <div className="prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200" dangerouslySetInnerHTML={{ __html: post.content }}></div>
 
@@ -139,7 +139,7 @@ const PostPage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {relatedPosts.map(related => (
                         <Link to={`/post/${related.id}`} key={related.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow group">
-                            <img src={related.image_url || `https://picsum.photos/seed/${related.id}/300/200`} alt={related.title} className="w-full h-40 object-cover" />
+                            <img src={related.image_url || `https://picsum.photos/seed/${related.id}/300/200`} alt={related.title} className="w-full h-auto object-contain" />
                             <div className="p-4">
                                 <h3 className="font-bold text-md text-gray-800 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors line-clamp-2">{related.title}</h3>
                             </div>

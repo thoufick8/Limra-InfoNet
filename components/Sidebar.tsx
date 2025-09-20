@@ -40,7 +40,7 @@ const Sidebar: React.FC<SidebarProps> = ({ categories, popularPosts, searchQuery
       <div className="space-y-4">
         {popularPosts.map(post => (
           <Link to={`/post/${post.id}`} key={post.id} className="flex items-center space-x-3 group">
-            <img src={post.image_url || `https://picsum.photos/seed/${post.id}/100/100`} alt={post.title} className="w-16 h-16 rounded-md object-cover" />
+            <img src={post.image_url || `https://picsum.photos/seed/${post.id}/100/100`} alt={post.title} className="w-16 h-16 rounded-md object-contain bg-gray-200 dark:bg-gray-700" />
             <div>
               <h4 className="font-semibold text-sm text-gray-800 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors line-clamp-2">{post.title}</h4>
               <p className="text-xs text-gray-500 dark:text-gray-400">{new Date(post.created_at).toLocaleDateString()}</p>

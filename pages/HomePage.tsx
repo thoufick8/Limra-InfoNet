@@ -12,6 +12,22 @@ import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
+const AdvertisementCard = ({ ad }: { ad: Advertisement }) => (
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 group h-full flex flex-col">
+        <a href={ad.ad_link} target="_blank" rel="noopener noreferrer" className="flex flex-col h-full">
+            <img src={ad.image_url} alt={ad.title} className="w-full h-auto object-contain" />
+            <div className="p-5 flex flex-col flex-grow">
+                <h3 className="text-lg font-bold text-gray-800 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors">{ad.title}</h3>
+                {ad.ad_description && <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm line-clamp-2 flex-grow">{ad.ad_description}</p>}
+                <div className="mt-4 text-primary-600 dark:text-primary-400 font-semibold text-sm flex items-center">
+                    Learn More <ChevronRight className="w-4 h-4 ml-1" />
+                </div>
+            </div>
+        </a>
+    </div>
+);
+
+
 const HomePage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [trendingPosts, setTrendingPosts] = useState<Post[]>([]);
@@ -20,6 +36,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+  const [contentWithAds, setContentWithAds] = useState<(Post | Advertisement)[]>([]);
 
   useEffect(() => {
     const fetchAllData = async () => {
@@ -71,6 +88,23 @@ const HomePage = () => {
     }
   }, [searchQuery, posts]);
 
+  useEffect(() => {
+    const newContentWithAds: (Post | Advertisement)[] = [];
+    if (advertisements.length > 1) {
+        let adIndex = 1; // Start from the second ad for in-feed placement
+        for (let i = 0; i < filteredPosts.length; i++) {
+            newContentWithAds.push(filteredPosts[i]);
+            if ((i + 1) % 3 === 0 && adIndex < advertisements.length) {
+                newContentWithAds.push(advertisements[adIndex]);
+                adIndex++;
+            }
+        }
+    } else {
+        newContentWithAds.push(...filteredPosts);
+    }
+    setContentWithAds(newContentWithAds);
+  }, [filteredPosts, advertisements]);
+
 
   if (loading) {
     return <Layout><div className="flex justify-center items-center h-96"><Spinner /></div></Layout>;
@@ -98,8 +132,8 @@ const HomePage = () => {
         >
           {trendingPosts.map(post => (
             <SwiperSlide key={post.id}>
-              <Link to={`/post/${post.id}`} className="block relative h-64 rounded-lg overflow-hidden group">
-                <img src={post.image_url || `https://picsum.photos/seed/${post.id}/500/300`} alt={post.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              <Link to={`/post/${post.id}`} className="block relative h-64 rounded-lg overflow-hidden group bg-gray-200 dark:bg-gray-700">
+                <img src={post.image_url || `https://picsum.photos/seed/${post.id}/500/300`} alt={post.title} className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4">
                   <h3 className="text-white text-lg font-bold">{post.title}</h3>
                 </div>
@@ -114,20 +148,13 @@ const HomePage = () => {
 
       {advertisements.length > 0 && (
         <div className="mb-12">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Promotions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {advertisements.map(ad => (
-              <a href={ad.ad_link} key={ad.id} target="_blank" rel="noopener noreferrer" className="block bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
-                <img src={ad.image_url} alt={ad.title} className="w-full h-48 object-cover" />
-                <div className="p-5">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors">{ad.title}</h3>
-                  <div className="mt-4 text-primary-600 dark:text-primary-400 font-semibold text-sm flex items-center">
-                    Learn More <ChevronRight className="w-4 h-4 ml-1" />
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
+            <a href={advertisements[0].ad_link} target="_blank" rel="noopener noreferrer" className="block group">
+                <img 
+                    src={advertisements[0].image_url} 
+                    alt={advertisements[0].title} 
+                    className="w-full h-auto object-contain rounded-lg shadow-md group-hover:shadow-xl transition-shadow"
+                />
+            </a>
         </div>
       )}
 
@@ -135,12 +162,16 @@ const HomePage = () => {
         <div className="lg:col-span-2">
           <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Recent Articles</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {filteredPosts.length > 0 ? (
-                filteredPosts.map(post => (
-                  <PostCard key={post.id} post={post} />
-                ))
+            {contentWithAds.length > 0 ? (
+                contentWithAds.map((item, index) => {
+                  if ('ad_link' in item) { // Type guard for Advertisement
+                    return <AdvertisementCard key={`ad-${item.id}-${index}`} ad={item} />;
+                  } else { // It's a Post
+                    return <PostCard key={item.id} post={item} />;
+                  }
+                })
             ) : (
-                 <p className="text-gray-600 dark:text-gray-400 md:col-span-2">No articles found matching your search.</p>
+                 <p className="text-gray-600 dark:text-gray-400 md:col-span-2">{searchQuery ? 'No articles found matching your search.' : 'No articles available.'}</p>
             )}
           </div>
         </div>
