@@ -1,6 +1,8 @@
 
+
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import { Category } from '../types';
 import Layout from '../components/Layout';
@@ -45,7 +47,7 @@ const CategoriesPage = () => {
         {categories.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {categories.map(category => (
-              <Link
+              <ReactRouterDOM.Link
                 to={`/category/${category.name}`}
                 key={category.id}
                 className="group block bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
@@ -58,7 +60,7 @@ const CategoriesPage = () => {
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                   {category.name}
                 </h2>
-              </Link>
+              </ReactRouterDOM.Link>
             ))}
           </div>
         ) : (

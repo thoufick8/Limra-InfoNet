@@ -1,6 +1,8 @@
 
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { Category, Post } from '../types';
 import { Search, Youtube, Facebook, Instagram } from 'lucide-react';
 import AdSenseBlock from './AdSenseBlock';
@@ -31,7 +33,7 @@ const Sidebar: React.FC<SidebarProps> = ({ categories, popularPosts, searchQuery
       <ul className="space-y-2">
         {categories.map(cat => (
           <li key={cat.id}>
-            <Link to={`/category/${cat.name}`} className="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors">{cat.name}</Link>
+            <ReactRouterDOM.Link to={`/category/${cat.name}`} className="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors">{cat.name}</ReactRouterDOM.Link>
           </li>
         ))}
       </ul>
@@ -40,13 +42,13 @@ const Sidebar: React.FC<SidebarProps> = ({ categories, popularPosts, searchQuery
       <h3 className="font-bold text-lg mb-4 text-gray-800 dark:text-white">Popular Posts</h3>
       <div className="space-y-4">
         {popularPosts.map(post => (
-          <Link to={`/post/${post.id}`} key={post.id} className="flex items-center space-x-3 group">
+          <ReactRouterDOM.Link to={`/post/${post.id}`} key={post.id} className="flex items-center space-x-3 group">
             <img src={post.image_url || `https://picsum.photos/seed/${post.id}/100/100`} alt={post.title} className="w-16 h-16 rounded-md object-contain bg-gray-200 dark:bg-gray-700" />
             <div>
               <h4 className="font-semibold text-sm text-gray-800 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors line-clamp-2">{post.title}</h4>
               <p className="text-xs text-gray-500 dark:text-gray-400">{new Date(post.created_at).toLocaleDateString()}</p>
             </div>
-          </Link>
+          </ReactRouterDOM.Link>
         ))}
       </div>
     </div>

@@ -1,7 +1,8 @@
 
+
 import React, { useState, useEffect } from 'react';
-// FIX: Use named imports for react-router-dom to resolve hook and component properties.
-import { useParams, Link } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import { Post, Comment } from '../types';
 import Layout from '../components/Layout';
@@ -11,7 +12,7 @@ import AdSenseBlock from '../components/AdSenseBlock';
 import { Calendar, User as UserIcon, Tag, Share2, Twitter, Facebook, MessageCircle, Send, FileText } from 'lucide-react';
 
 const PostPage = () => {
-  const { id } = useParams();
+  const { id } = ReactRouterDOM.useParams();
   const { user } = useAuth();
   const [post, setPost] = useState<Post | null>(null);
   const [relatedPosts, setRelatedPosts] = useState<Post[]>([]);
@@ -142,12 +143,12 @@ const PostPage = () => {
                 <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Related Posts</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {relatedPosts.map(related => (
-                        <Link to={`/post/${related.id}`} key={related.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow group">
+                        <ReactRouterDOM.Link to={`/post/${related.id}`} key={related.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow group">
                             <img src={related.image_url || `https://picsum.photos/seed/${related.id}/300/200`} alt={related.title} className="w-full h-auto object-contain" />
                             <div className="p-4">
                                 <h3 className="font-bold text-md text-gray-800 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors line-clamp-2">{related.title}</h3>
                             </div>
-                        </Link>
+                        </ReactRouterDOM.Link>
                     ))}
                 </div>
             </div>
@@ -179,7 +180,7 @@ const PostPage = () => {
             </form>
           ) : (
             <p className="mb-8 text-gray-600 dark:text-gray-400">
-              <Link to="/login" className="text-primary-500 hover:underline">Log in</Link> to post a comment.
+              <ReactRouterDOM.Link to="/login" className="text-primary-500 hover:underline">Log in</ReactRouterDOM.Link> to post a comment.
             </p>
           )}
 

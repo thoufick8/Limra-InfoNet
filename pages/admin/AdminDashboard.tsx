@@ -1,9 +1,10 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../services/supabaseClient';
 import { useAuth } from '../../context/AuthContext';
-// FIX: Use a named import for react-router-dom to resolve the Link component property.
-import { Link } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { FileText, Tags, MessageSquare, ArrowRight } from 'lucide-react';
 import Spinner from '../../components/Spinner';
 
@@ -19,9 +20,9 @@ const StatCard = ({ title, value, icon: Icon, link }: { title: string, value: nu
             </div>
         </div>
         <div className="mt-4">
-            <Link to={link} className="text-sm font-medium text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-200 flex items-center">
+            <ReactRouterDOM.Link to={link} className="text-sm font-medium text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-200 flex items-center">
                 View all <ArrowRight className="ml-1 w-4 h-4" />
-            </Link>
+            </ReactRouterDOM.Link>
         </div>
     </div>
 );
@@ -72,15 +73,15 @@ const AdminDashboard = () => {
        <div className="mt-8 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
             <h2 className="text-lg font-medium text-gray-900 dark:text-white">Quick Actions</h2>
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <Link to="/admin/posts/new" className="text-center px-4 py-3 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition">
+                <ReactRouterDOM.Link to="/admin/posts/new" className="text-center px-4 py-3 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition">
                     Create New Post
-                </Link>
-                 <Link to="/admin/categories" className="text-center px-4 py-3 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+                </ReactRouterDOM.Link>
+                 <ReactRouterDOM.Link to="/admin/categories" className="text-center px-4 py-3 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition">
                     Manage Categories
-                </Link>
-                 <Link to="/admin/comments" className="text-center px-4 py-3 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+                </ReactRouterDOM.Link>
+                 <ReactRouterDOM.Link to="/admin/comments" className="text-center px-4 py-3 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition">
                     Moderate Comments
-                </Link>
+                </ReactRouterDOM.Link>
             </div>
         </div>
     </div>

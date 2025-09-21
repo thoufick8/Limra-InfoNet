@@ -1,7 +1,8 @@
 
+
 import React, { useState } from 'react';
-// FIX: Use named imports for react-router-dom to resolve hook and component properties.
-import { useNavigate, Link } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { supabase } from '../../services/supabaseClient';
 import { Mail, Lock } from 'lucide-react';
 
@@ -10,7 +11,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
+  const navigate = ReactRouterDOM.useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();

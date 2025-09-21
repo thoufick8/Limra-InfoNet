@@ -1,7 +1,8 @@
 
+
 import React, { ReactNode } from 'react';
-// FIX: Use a named import for react-router-dom to resolve the Navigate component property.
-import { Navigate } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Spinner from './Spinner';
 
@@ -21,7 +22,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   }
 
   if (!user) {
-    return <Navigate to="/admin/login" replace />;
+    return <ReactRouterDOM.Navigate to="/admin/login" replace />;
   }
 
   return <>{children}</>;

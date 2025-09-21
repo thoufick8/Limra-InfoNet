@@ -1,7 +1,8 @@
 
+
 import React, { useState, useEffect } from 'react';
-// FIX: Use named imports for react-router-dom to resolve hook properties.
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { supabase } from '../../services/supabaseClient';
 import { useAuth } from '../../context/AuthContext';
 import { Category, Post } from '../../types';
@@ -10,10 +11,10 @@ import { Sparkles, Save, Upload, Image as ImageIcon, FileText, Search } from 'lu
 import Spinner from '../../components/Spinner';
 
 const PostEditor = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
+    const { id } = ReactRouterDOM.useParams();
+    const navigate = ReactRouterDOM.useNavigate();
     const { user } = useAuth();
-    const location = useLocation();
+    const location = ReactRouterDOM.useLocation();
     
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');

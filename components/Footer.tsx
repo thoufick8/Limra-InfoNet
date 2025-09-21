@@ -1,7 +1,8 @@
 
+
 import React, { useState } from 'react';
-// FIX: Use a named import for react-router-dom to resolve the Link component property.
-import { Link } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { Send } from 'lucide-react';
 
 const Footer = () => {
@@ -30,10 +31,10 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li><Link to="/about" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">About Us</Link></li>
-              <li><Link to="/contact" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">Contact</Link></li>
-              <li><Link to="#" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">Privacy Policy</Link></li>
-              <li><Link to="/admin" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">Admin Panel</Link></li>
+              <li><ReactRouterDOM.Link to="/about" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">About Us</ReactRouterDOM.Link></li>
+              <li><ReactRouterDOM.Link to="/contact" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">Contact</ReactRouterDOM.Link></li>
+              <li><ReactRouterDOM.Link to="#" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">Privacy Policy</ReactRouterDOM.Link></li>
+              <li><ReactRouterDOM.Link to="/admin" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">Admin Panel</ReactRouterDOM.Link></li>
             </ul>
           </div>
           <div>

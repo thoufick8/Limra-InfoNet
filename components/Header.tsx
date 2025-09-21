@@ -1,7 +1,8 @@
 
+
 import React, { useState } from 'react';
-// FIX: Use named imports for react-router-dom to resolve component properties.
-import { Link, NavLink } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { Sun, Moon, Menu, X } from 'lucide-react';
 
@@ -25,25 +26,25 @@ const Header = () => {
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
-            <Link to="/" className="flex items-center space-x-2">
+            <ReactRouterDOM.Link to="/" className="flex items-center space-x-2">
               <img 
                 className="h-10 w-auto" 
                 src="https://i.postimg.cc/Y060Kbvp/Picsart-25-09-18-07-38-03-872.png" 
                 alt="Limra InfoNet Logo" 
               />
               <span className="font-serif font-bold text-xl text-gray-800 dark:text-white">Limra InfoNet</span>
-            </Link>
+            </ReactRouterDOM.Link>
           </div>
           <div className="hidden md:flex md:items-center md:space-x-8">
             {navLinks.map((link) => (
-              <NavLink 
+              <ReactRouterDOM.NavLink 
                 key={link.name} 
                 to={link.path}
                 end={link.path === '/'}
                 className={({ isActive }) => `${isActive ? activeLinkClass : inactiveLinkClass} font-medium transition-colors`}
               >
                 {link.name}
-              </NavLink>
+              </ReactRouterDOM.NavLink>
             ))}
           </div>
           <div className="flex items-center space-x-4">
@@ -70,7 +71,7 @@ const Header = () => {
         <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navLinks.map((link) => (
-              <NavLink 
+              <ReactRouterDOM.NavLink 
                 key={link.name} 
                 to={link.path}
                 end={link.path === '/'}
@@ -78,7 +79,7 @@ const Header = () => {
                 className={({ isActive }) => `block px-3 py-2 rounded-md text-base font-medium ${isActive ? 'bg-primary-50 dark:bg-gray-800 ' + activeLinkClass : inactiveLinkClass}`}
               >
                 {link.name}
-              </NavLink>
+              </ReactRouterDOM.NavLink>
             ))}
           </div>
         </div>

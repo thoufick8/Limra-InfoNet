@@ -1,8 +1,9 @@
 
 
+
 import React from 'react';
-// FIX: Use named imports for react-router-dom to resolve component and hook properties.
-import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../services/supabaseClient';
 import { LayoutDashboard, FileText, Tags, MessageSquare, LogOut, ExternalLink, Menu, X, Sun, Moon, Youtube, Megaphone } from 'lucide-react';
@@ -11,7 +12,7 @@ import AIAssistant from '../../components/AIAssistant';
 
 const AdminLayout = () => {
     const { user } = useAuth();
-    const navigate = useNavigate();
+    const navigate = ReactRouterDOM.useNavigate();
     const [sidebarOpen, setSidebarOpen] = React.useState(false);
     const { theme, toggleTheme } = useTheme();
 
@@ -35,21 +36,21 @@ const AdminLayout = () => {
     const SidebarContent = () => (
         <div className="flex flex-col h-full">
             <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-                <Link to="/admin" className="flex items-center space-x-2">
+                <ReactRouterDOM.Link to="/admin" className="flex items-center space-x-2">
                     <img 
                         className="h-10 w-auto" 
                         src="https://i.postimg.cc/Y060Kbvp/Picsart-25-09-18-07-38-03-872.png" 
                         alt="Limra InfoNet Logo" 
                     />
                     <span className="font-bold text-xl text-gray-800 dark:text-white">Limra InfoNet</span>
-                </Link>
+                </ReactRouterDOM.Link>
                 <button onClick={() => setSidebarOpen(false)} className="lg:hidden p-1 text-gray-500 dark:text-gray-400">
                     <X size={20}/>
                 </button>
             </div>
             <nav className="flex-grow p-4 space-y-2">
                 {navItems.map(item => (
-                    <NavLink
+                    <ReactRouterDOM.NavLink
                         key={item.name}
                         to={item.path}
                         end={item.path === '/admin'}
@@ -58,7 +59,7 @@ const AdminLayout = () => {
                     >
                         <item.icon className="mr-3 h-5 w-5" />
                         <span>{item.name}</span>
-                    </NavLink>
+                    </ReactRouterDOM.NavLink>
                 ))}
             </nav>
             <div className="p-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
@@ -115,7 +116,7 @@ const AdminLayout = () => {
                 <main className="flex-1 relative overflow-y-auto focus:outline-none">
                     <div className="py-6">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                            <Outlet />
+                            <ReactRouterDOM.Outlet />
                         </div>
                     </div>
                 </main>

@@ -1,6 +1,8 @@
 
+
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { generatePostFromTranscript } from '../../services/geminiService';
 import Spinner from '../../components/Spinner';
 import { Sparkles, AlertTriangle, DownloadCloud } from 'lucide-react';
@@ -12,7 +14,7 @@ const YouTubeTool = () => {
     const [isGeneratingPost, setIsGeneratingPost] = useState(false);
     const [fetchError, setFetchError] = useState<string | null>(null);
     const [generateError, setGenerateError] = useState<string | null>(null);
-    const navigate = useNavigate();
+    const navigate = ReactRouterDOM.useNavigate();
 
     const extractVideoId = (url: string): string | null => {
         const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;

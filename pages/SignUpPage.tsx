@@ -1,6 +1,8 @@
 
+
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import { User, Mail, Lock } from 'lucide-react';
 
@@ -12,7 +14,7 @@ const SignUpPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const navigate = useNavigate();
+  const navigate = ReactRouterDOM.useNavigate();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,13 +63,13 @@ const SignUpPage = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
       <div className="w-full max-w-md p-8 space-y-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
         <div className="text-center">
-          <Link to="/">
+          <ReactRouterDOM.Link to="/">
             <img 
               className="mx-auto h-16 w-auto" 
               src="https://i.postimg.cc/Y060Kbvp/Picsart-25-09-18-07-38-03-872.png" 
               alt="Limra InfoNet Logo" 
             />
-          </Link>
+          </ReactRouterDOM.Link>
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-white">
             Create an Account
           </h2>
@@ -133,9 +135,9 @@ const SignUpPage = () => {
         </form>
          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
             Already have an account?{' '}
-            <Link to="/login" className="font-medium text-primary-600 hover:text-primary-500">
+            <ReactRouterDOM.Link to="/login" className="font-medium text-primary-600 hover:text-primary-500">
                 Log in here
-            </Link>
+            </ReactRouterDOM.Link>
         </p>
       </div>
     </div>

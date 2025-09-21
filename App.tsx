@@ -1,7 +1,8 @@
 
+
 import React from 'react';
-// FIX: Use named imports for react-router-dom to resolve component and hook properties.
-import { HashRouter, Route, Routes } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 
@@ -29,35 +30,35 @@ function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <HashRouter>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/post/:id" element={<PostPage />} />
-            <Route path="/category/:name" element={<CategoryPage />} />
-            <Route path="/categories" element={<CategoriesPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/login" element={<UserLoginPage />} />
-            <Route path="/admin/login" element={<AdminLoginPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
+        <ReactRouterDOM.HashRouter>
+          <ReactRouterDOM.Routes>
+            <ReactRouterDOM.Route path="/" element={<HomePage />} />
+            <ReactRouterDOM.Route path="/blog" element={<BlogPage />} />
+            <ReactRouterDOM.Route path="/post/:id" element={<PostPage />} />
+            <ReactRouterDOM.Route path="/category/:name" element={<CategoryPage />} />
+            <ReactRouterDOM.Route path="/categories" element={<CategoriesPage />} />
+            <ReactRouterDOM.Route path="/about" element={<AboutPage />} />
+            <ReactRouterDOM.Route path="/contact" element={<ContactPage />} />
+            <ReactRouterDOM.Route path="/login" element={<UserLoginPage />} />
+            <ReactRouterDOM.Route path="/admin/login" element={<AdminLoginPage />} />
+            <ReactRouterDOM.Route path="/signup" element={<SignUpPage />} />
             
-            <Route path="/admin" element={
+            <ReactRouterDOM.Route path="/admin" element={
               <ProtectedRoute>
                 <AdminLayout />
               </ProtectedRoute>
             }>
-              <Route index element={<AdminDashboard />} />
-              <Route path="posts" element={<ManagePosts />} />
-              <Route path="posts/new" element={<PostEditor />} />
-              <Route path="posts/edit/:id" element={<PostEditor />} />
-              <Route path="categories" element={<ManageCategories />} />
-              <Route path="comments" element={<ManageComments />} />
-              <Route path="youtube-tool" element={<YouTubeTool />} />
-              <Route path="advertisement" element={<ManageAdvertisements />} />
-            </Route>
-          </Routes>
-        </HashRouter>
+              <ReactRouterDOM.Route index element={<AdminDashboard />} />
+              <ReactRouterDOM.Route path="posts" element={<ManagePosts />} />
+              <ReactRouterDOM.Route path="posts/new" element={<PostEditor />} />
+              <ReactRouterDOM.Route path="posts/edit/:id" element={<PostEditor />} />
+              <ReactRouterDOM.Route path="categories" element={<ManageCategories />} />
+              <ReactRouterDOM.Route path="comments" element={<ManageComments />} />
+              <ReactRouterDOM.Route path="youtube-tool" element={<YouTubeTool />} />
+              <ReactRouterDOM.Route path="advertisement" element={<ManageAdvertisements />} />
+            </ReactRouterDOM.Route>
+          </ReactRouterDOM.Routes>
+        </ReactRouterDOM.HashRouter>
       </AuthProvider>
     </ThemeProvider>
   );

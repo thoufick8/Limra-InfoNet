@@ -1,7 +1,8 @@
 
+
 import React, { useState, useEffect } from 'react';
-// FIX: Use a named import for react-router-dom to resolve the Link component property.
-import { Link } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { supabase } from '../../services/supabaseClient';
 import { Post } from '../../types';
 import { Plus, Edit, Trash2 } from 'lucide-react';
@@ -45,13 +46,13 @@ const ManagePosts = () => {
     <div>
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Manage Posts</h1>
-        <Link
+        <ReactRouterDOM.Link
           to="/admin/posts/new"
           className="inline-flex items-center px-4 py-2 bg-primary-600 text-white font-semibold rounded-md hover:bg-primary-700"
         >
           <Plus className="mr-2 h-5 w-5" />
           New Post
-        </Link>
+        </ReactRouterDOM.Link>
       </div>
 
       <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-x-auto">
@@ -85,9 +86,9 @@ const ManagePosts = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{new Date(post.created_at).toLocaleDateString()}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <div className="flex items-center justify-end space-x-4">
-                        <Link to={`/admin/posts/edit/${post.id}`} className="text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-200">
+                        <ReactRouterDOM.Link to={`/admin/posts/edit/${post.id}`} className="text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-200">
                             <Edit className="w-5 h-5"/>
-                        </Link>
+                        </ReactRouterDOM.Link>
                         <button onClick={() => deletePost(post.id)} className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-200">
                             <Trash2 className="w-5 h-5"/>
                         </button>

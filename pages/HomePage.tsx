@@ -1,7 +1,8 @@
 
+
 import React, { useState, useEffect } from 'react';
-// FIX: Use a named import for react-router-dom to resolve the Link component property.
-import { Link } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import { Post, Category, Advertisement } from '../types';
 import Layout from '../components/Layout';
@@ -133,12 +134,12 @@ const HomePage = () => {
         >
           {trendingPosts.map(post => (
             <SwiperSlide key={post.id}>
-              <Link to={`/post/${post.id}`} className="block relative h-64 rounded-lg overflow-hidden group bg-gray-200 dark:bg-gray-700">
+              <ReactRouterDOM.Link to={`/post/${post.id}`} className="block relative h-64 rounded-lg overflow-hidden group bg-gray-200 dark:bg-gray-700">
                 <img src={post.image_url || `https://picsum.photos/seed/${post.id}/500/300`} alt={post.title} className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4">
                   <h3 className="text-white text-lg font-bold">{post.title}</h3>
                 </div>
-              </Link>
+              </ReactRouterDOM.Link>
             </SwiperSlide>
           ))}
         </Swiper>

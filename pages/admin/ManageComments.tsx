@@ -1,8 +1,10 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../services/supabaseClient';
 import { Comment } from '../../types';
-import { Link } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { Trash2 } from 'lucide-react';
 import Spinner from '../../components/Spinner';
 
@@ -67,9 +69,9 @@ const ManageComments = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{comment.users?.name || 'Unknown User'}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <Link to={`/post/${comment.post_id}`} className="text-sm text-primary-600 hover:underline dark:text-primary-400 line-clamp-1">
+                    <ReactRouterDOM.Link to={`/post/${comment.post_id}`} className="text-sm text-primary-600 hover:underline dark:text-primary-400 line-clamp-1">
                       {comment.posts?.title || 'Unknown Post'}
-                    </Link>
+                    </ReactRouterDOM.Link>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{new Date(comment.created_at).toLocaleDateString()}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

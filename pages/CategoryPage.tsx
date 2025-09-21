@@ -1,7 +1,8 @@
 
+
 import React, { useState, useEffect } from 'react';
-// FIX: Use named imports for react-router-dom to resolve hook and component properties.
-import { useParams, Link } from 'react-router-dom';
+// FIX: Use namespace import for react-router-dom to resolve module export errors.
+import * as ReactRouterDOM from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import { Post } from '../types';
 import Layout from '../components/Layout';
@@ -10,7 +11,7 @@ import { ChevronRight } from 'lucide-react';
 
 const PostCard = ({ post }: { post: Post }) => (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
-      <Link to={`/post/${post.id}`}>
+      <ReactRouterDOM.Link to={`/post/${post.id}`}>
         <img src={post.image_url || `https://picsum.photos/seed/${post.id}/400/250`} alt={post.title} className="w-full h-auto object-contain" />
         <div className="p-5">
           <h3 className="mt-2 text-lg font-bold text-gray-800 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors">{post.title}</h3>
@@ -19,12 +20,12 @@ const PostCard = ({ post }: { post: Post }) => (
             Read More <ChevronRight className="w-4 h-4 ml-1" />
           </div>
         </div>
-      </Link>
+      </ReactRouterDOM.Link>
     </div>
 );
 
 const CategoryPage = () => {
-  const { name } = useParams();
+  const { name } = ReactRouterDOM.useParams();
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
