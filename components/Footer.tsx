@@ -33,7 +33,9 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><ReactRouterDOM.Link to="/about" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">About Us</ReactRouterDOM.Link></li>
               <li><ReactRouterDOM.Link to="/contact" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">Contact</ReactRouterDOM.Link></li>
-              <li><ReactRouterDOM.Link to="#" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">Privacy Policy</ReactRouterDOM.Link></li>
+              <li><ReactRouterDOM.Link to="/privacy-policy" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">Privacy Policy</ReactRouterDOM.Link></li>
+              <li><ReactRouterDOM.Link to="/copyright" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">Copyright</ReactRouterDOM.Link></li>
+              <li><ReactRouterDOM.Link to="/terms-and-conditions" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">Terms & Conditions</ReactRouterDOM.Link></li>
               <li><ReactRouterDOM.Link to="/admin" className="text-gray-600 dark:text-gray-400 hover:text-primary-500">Admin Panel</ReactRouterDOM.Link></li>
             </ul>
           </div>

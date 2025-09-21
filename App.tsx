@@ -25,6 +25,9 @@ import SignUpPage from './pages/SignUpPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import YouTubeTool from './pages/admin/YouTubeTool';
 import ManageAdvertisements from './pages/admin/ManageAdvertisements';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import CopyrightPage from './pages/CopyrightPage';
+import TermsConditionsPage from './pages/TermsConditionsPage';
 
 function App() {
   return (
@@ -42,6 +45,10 @@ function App() {
             <ReactRouterDOM.Route path="/login" element={<UserLoginPage />} />
             <ReactRouterDOM.Route path="/admin/login" element={<AdminLoginPage />} />
             <ReactRouterDOM.Route path="/signup" element={<SignUpPage />} />
+            
+            <ReactRouterDOM.Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <ReactRouterDOM.Route path="/copyright" element={<CopyrightPage />} />
+            <ReactRouterDOM.Route path="/terms-and-conditions" element={<TermsConditionsPage />} />
             
             <ReactRouterDOM.Route path="/admin" element={
               <ProtectedRoute>
